@@ -324,7 +324,8 @@ int Pollard_Rho(string image, string H, string c, string preiamge) //H = SM3(ima
 		SM3(input,output);
 		string temp=to_string(tmp);
 		if (!cmphash(H, output, Collisionlen)&&temp!=image)
-		{
+		{	
+			cout<<"找到前"<<24<<"bit的碰撞"<<endl;
 			preiamge = temp;
 			cout << "SM3(" << input << "):";
 			cout << output << endl;
@@ -347,7 +348,6 @@ void  PreimageAttack(string image)
 	{
 		c = rand();
 	}
-	cout << "原像\"" << 'a' << "\"的碰撞\"" << 'b' << "\"，前" << 24 << "bit相同" << endl;
 }
 int main() {//主函数
 	string str[2];
