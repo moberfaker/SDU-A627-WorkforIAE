@@ -353,7 +353,7 @@ int main() {//主函数
 	string str[2];
 	string res;
 
-	srand(time(NULL)); //初始随机数会直接影响到找到环路的时间，好的时候只需要几秒，不好的时候要几分钟（对于24bit，32bit要更久）
+	srand(time(NULL)); 
 	clock_t start, end;//定义clock_t变量
 	start = clock();  //开始时间
 	unsigned int image = rand();
