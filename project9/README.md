@@ -54,5 +54,5 @@ SM4将明文分为4个字节块操作，故而加密过程涉及4个字节块的
 
 ## 3 运行结果
 对各个阶段进行运行时间(ns)和吞吐量测试(Gbps),单次SM4运行时间达到14ns，吞吐量约8Gbps。
-> ![test](project9/test.jpg "test try")  
+> ![](test.jpg)  
 > <!-- 与md文件同一目录下的foldername文件夹，里的1.png图片 -->
