@@ -94,21 +94,11 @@ string padding(string str) {//对数据进行填充
 	for (int i = 0; i < str.size(); i++) {//首先将输入值转换为16进制字符串
 		res += DecToHex((int)str[i]);
 	}
-	//cout << "输入字符串的ASCII码表示为：" << endl;
-	//for (int i = 0; i < res.size(); i++) {
-	//	cout << res[i];
-	//	if ((i + 1) % 8 == 0) {
-	//		cout << "  ";
-	//	}
-	//	if ((i + 1) % 64 == 0 || (i + 1) == res.size()) {
-	//		cout << endl;
-	//	}
-	//}
 	cout << endl;
-	int res_length = res.size() * 4;//记录的长度为2进制下的长度
-	res += "8";//在获得的数据后面添1，在16进制下相当于是添加8
+	int res_length = res.size() * 4;
+	res += "8";
 	while (res.size() % 128 != 112) {
-		res += "0";//“0”数据填充
+		res += "0";//“0”填充
 	}
 	string res_len = DecToHex(res_length);//用于记录数据长度的字符串
 	while (res_len.size() != 16) {
@@ -118,7 +108,7 @@ string padding(string str) {//对数据进行填充
 	return res;
 }
 
-string LeftShift(string str, int len) {//实现循环左移len位功能
+string LeftShift(string str, int len) {//循环左移
 	string res = HexToBin(str);
 	res = res.substr(len) + res.substr(0, len);
 	return BinToHex(res);
@@ -252,27 +242,9 @@ string extension(string str) {//消息扩展函数
 	for (int i = 16; i < 68; i++) {//根据公式生成第17位到第68位的W值
 		res += XOR(XOR(P1(XOR(XOR(res.substr((i - 16) * 8, 8), res.substr((i - 9) * 8, 8)), LeftShift(res.substr((i - 3) * 8, 8), 15))), LeftShift(res.substr((i - 13) * 8, 8), 7)), res.substr((i - 6) * 8, 8));
 	}
-	//cout << "扩展后的消息：" << endl;
-	//cout << "W0,W1,……,W67的消息：" << endl;
-	//for (int i = 0; i < 8; i++) {
-	//	for (int j = 0; j < 8; j++) {
-	//		cout << res.substr(i * 64 + j * 8, 8) << "  ";
-	//	}
-	//	cout << endl;
-	//}
-	//cout << res.substr(512, 8) << "  " << res.substr(520, 8) << "  " << res.substr(528, 8) << "  " << res.substr(536, 8) << endl;
-	//cout << endl;
 	for (int i = 0; i < 64; i++) {//根据公式生成64位W'值
 		res += XOR(res.substr(i * 8, 8), res.substr((i + 4) * 8, 8));
 	}
-	//cout << "W0',W1',……,W63'的消息：" << endl;
-	//for (int i = 0; i < 8; i++) {
-	//	for (int j = 0; j < 8; j++) {
-	//		cout << res.substr(544 + i * 64 + j * 8, 8) << "  ";
-	//	}
-	//	cout << endl;
-	//}
-	//cout << endl;
 	return res;
 }
 
@@ -280,9 +252,6 @@ string compress(string str1, string str2) {//消息压缩函数
 	string IV = str2;
 	string A = IV.substr(0, 8), B = IV.substr(8, 8), C = IV.substr(16, 8), D = IV.substr(24, 8), E = IV.substr(32, 8), F = IV.substr(40, 8), G = IV.substr(48, 8), H = IV.substr(56, 8);
 	string SS1 = "", SS2 = "", TT1 = "", TT2 = "";
-	//cout << "迭代压缩中间值: " << endl;
-	//cout << "    A         B         C         D         E         F        G         H " << endl;
-	//cout << A << "  " << B << "  " << C << "  " << D << "  " << E << "  " << F << "  " << G << "  " << H << endl;
 	for (int j = 0; j < 64; j++) {
 		SS1 = LeftShift(ModAdd(ModAdd(LeftShift(A, 12), E), LeftShift(T(j), (j % 32))), 7);
 		SS2 = XOR(SS1, LeftShift(A, 12));
@@ -296,7 +265,6 @@ string compress(string str1, string str2) {//消息压缩函数
 		G = LeftShift(F, 19);
 		F = E;
 		E = P0(TT2);
-		//cout << A << "  " << B << "  " << C << "  " << D << "  " << E << "  " << F << "  " << G << "  " << H << endl;
 	}
 	string res = (A + B + C + D + E + F + G + H);
 	//cout << endl;
@@ -305,8 +273,6 @@ string compress(string str1, string str2) {//消息压缩函数
 
 string iteration(string str) {//迭代压缩函数实现
 	int num = str.size() / 128;
-	//cout << "消息经过填充之后共有 " + to_string(num) + " 个消息分组。" << endl;
-	//cout << endl;
 	string V = "7380166F4914B2B9172442D7DA8A0600A96F30BC163138AAE38DEE4DB0FB0E4E";
 	string B = "", extensionB = "", compressB = "";
 	for (int i = 0; i < num; i++) {
@@ -358,7 +324,8 @@ int Pollard_Rho(string image, string H, string c, string preiamge) //H = SM3(ima
 		SM3(input,output);
 		string temp=to_string(tmp);
 		if (!cmphash(H, output, Collisionlen)&&temp!=image)
-		{
+		{	
+			cout<<"找到前"<<24<<"bit的碰撞"<<endl;
 			preiamge = temp;
 			cout << "SM3(" << input << "):";
 			cout << output << endl;
@@ -381,35 +348,19 @@ void  PreimageAttack(string image)
 	{
 		c = rand();
 	}
-	cout << "原像\"" << 'a' << "\"的碰撞\"" << 'b' << "\"，前" << 24 << "bit相同" << endl;
 }
 int main() {//主函数
 	string str[2];
 	string res;
-	//str[0] = "abc";
-	//str[1] = "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd";
-	//SM3(str[0],res);
-	//SM3(str[1],res);
-	srand(time(NULL)); //初始随机数会直接影响到找到环路的时间，好的时候只需要几秒，不好的时候要几分钟（对于24bit，32bit要更久）
+
+	srand(time(NULL)); 
 	clock_t start, end;//定义clock_t变量
 	start = clock();  //开始时间
 	unsigned int image = rand();
 	string image_1 = to_string(image);
-	//PreimageAttack(image_1);
-	cout << "找到前24bit的碰撞" << endl;
-	cout << "SM3(29664):" << endl;
-	cout << "FF67431E  AE284E72  329E1D16  DD78De12 5DDA692F  7B3513D8  6F15E677 2FD0F095" << endl;
-	cout << "SM3(1463676364):" << endl;
-	cout << "FF67438A  CFFDE36D  085105EF  905A0256 71EEFDC9  AD7B5D28  6E66179A 62B26EA6" << endl;
+	PreimageAttack(image_1);
 	end = clock();   //结束时间
-	cout << "time = " <<15.213<< "s" << endl;
-
-	cout << "找到前16bit的碰撞" << endl;
-	cout << "SM3(13130):" << endl;
-	cout << "12DA6969  6CDD0AA9  98BC18C0  4562A450  DFC6179D  C1F14A44  84009003  CBF70454" << endl;
-	cout << "SM3(490251184):" << endl;
-	cout << "12DA99FE  9FB64240  4E945B49  1DD069D0  C5C4713A  340F51D9  D0C36538  D523A355" << endl;
-	cout << "time = " << 0.0542<< "s" << endl;
+	cout << "time = " <<double(end-begin)/CLOCKS_PER_SEC<< "s" << endl;
 	return 0;
 }
 
