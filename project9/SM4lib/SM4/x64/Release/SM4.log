@@ -1,0 +1,9 @@
+﻿  test.c
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project9\code\test.c(71,2): warning C4013: “system”未定义；假设外部返回 int
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project9\code\test.c(35,16): warning C4101: “end”: 未引用的局部变量
+  正在生成代码
+  4 of 18 functions (22.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  已完成代码的生成
+  SM4.vcxproj -> C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project9\SM4\x64\Release\SM4.exe

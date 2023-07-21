@@ -68,5 +68,6 @@ int main() {
 
 	free(output);
 	free(output2);
+	system("pause");
 	return 0;
 }
