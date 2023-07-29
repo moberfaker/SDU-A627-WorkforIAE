@@ -333,7 +333,7 @@ int Pollard_Rho(string image, string H, string c, string preiamge) //H = SM3(ima
 		}
 	}
 }
-void  PreimageAttack(string image)
+void	Attack(string image)
 {
 	string preimage;
 	string image_input = image;

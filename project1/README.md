@@ -48,6 +48,7 @@ string compress(string str1, string str2) {//消息压缩函数
 		E = P0(TT2);
 	}
 	string res = (A + B + C + D + E + F + G + H);
+	//cout << endl;
 	return res;
 }
 
@@ -56,7 +57,8 @@ string iteration(string str) {//迭代压缩函数实现
 	string V = "7380166F4914B2B9172442D7DA8A0600A96F30BC163138AAE38DEE4DB0FB0E4E";
 	string B = "", extensionB = "", compressB = "";
 	for (int i = 0; i < num; i++) {
-
+		//cout << "第 " << to_string(i + 1) << " 个消息分组：" << endl;
+		//cout << endl;
 		B = str.substr(i * 128, 128);
 		extensionB = extension(B);
 		compressB = compress(extensionB, V);
@@ -64,6 +66,7 @@ string iteration(string str) {//迭代压缩函数实现
 	}
 	return V;
 }
+
 
 string SM3(string str,string output) {
 	//cout << "原像为:" <<endl<< str<<endl;
@@ -78,7 +81,7 @@ string SM3(string str,string output) {
 ```
 **【SM3生日攻击】**
 ```
-int Pollard_Rho(string image, string H, string c, string preiamge) 
+int Pollard_Rho(string image, string H, string c, string preiamge) //H = SM3(image) 
 {
 	unsigned int m1 = rand();
 	unsigned int m2 = m1;
@@ -93,8 +96,9 @@ int Pollard_Rho(string image, string H, string c, string preiamge)
 		string output;
 		SM3(input,output);
 		string temp=to_string(tmp);
-		if (!Comp(H, output, Collisionlen)&&temp!=image)
-		{
+		if (!cmphash(H, output, Collisionlen)&&temp!=image)
+		{	
+			cout<<"找到前"<<24<<"bit的碰撞"<<endl;
 			preiamge = temp;
 			cout << "SM3(" << input << "):";
 			cout << output << endl;
@@ -117,7 +121,6 @@ void  Attack(string image)
 	{
 		c = rand();
 	}
-	cout << "原像\"" << 'a' << "\"的碰撞\"" << 'b' << "\"，前" << 24 << "bit相同" << endl;
 }
 ```
 
