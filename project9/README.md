@@ -69,8 +69,7 @@ SM4相关测试与优化都在visual studio 2022编译器环境下运行。具�
 
 ### 3.2 运行结果
 对各个阶段进行运行时间(ns)和吞吐量测试(Gbps),单次SM4运行时间达到14ns，吞吐量约8Gbps。
-<<<<<<< HEAD
-> ![test](project9/test.jpg "test try")  
+> ![test](test.jpg "test")  
 > <!-- 与md文件同一目录下的foldername文件夹，里的1.png图片 -->
 
 ## 4 文件索引
@@ -78,7 +77,3 @@ SM4相关测试与优化都在visual studio 2022编译器环境下运行。具�
 + **代码文件**  project9/code下，纯代码文件
 
 + **执行文件**	SM4Test.exe, SM4速度与吞吐量测试可执行文件
-=======
-> ![try1](test.jpg "try2")  
-> <!-- 与md文件同一目录下的foldername文件夹，里的1.png图片 -->
->>>>>>> 79e85868f0c29a385db2fd90bc3c34226134138a

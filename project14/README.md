@@ -23,7 +23,7 @@
 ## 2 PGP框架构造
 
 本项目的PGP协议基于国密算法原语SM2/SM3/SM4，随机数生成器PRG基于c++密码学库bcrypt.lib。具体框架如下：
-> ![PGP框架](project9/test.jpg "PGP框架")
+> ![PGP框架](PGP框架.jpg "PGP框架")
 
 具体算法应用涉及UserID、时间戳等信息，需要对PGP报文进行设计:
 ```
@@ -130,15 +130,15 @@ PGP_on_SM2相关测试与优化都在visual studio 2022编译器环境下运行�
 ### 3.2 应用测试
 模拟测试Alice与Bob之间的PGP通信：
 
-> ![PGP模拟测试](project14/PGP模拟测试.jpg "PGP模拟测试")
+> ![PGP模拟测试](PGP模拟测试.jpg "PGP模拟测试")
 
 测试在1024Bytes数据量下PGP协议速度与吞吐量：
 
-> ![PGP速度_吞吐测试](project14/PGP速度_吞吐测试.jpg "PGP速度_吞吐测试")
+> ![PGP速度_吞吐测试](PGP速度_吞吐测试.jpg "PGP速度_吞吐测试")
 
 
 ## 4 文件索引
 
-+ **代码文件**  project9/PGP_on_SM下，PGP项目文件(Visual studio 2022)
++ **代码文件**  project14/PGP_on_SM下，PGP项目文件(Visual studio 2022)
 
-+ **执行文件**	PGPTest.exe, 应用测试与速度测试可执行文件
++ **执行文件**	project14/PGPTest.exe, 应用测试与速度测试可执行文件
