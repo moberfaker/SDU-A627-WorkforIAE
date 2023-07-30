@@ -1,0 +1,74 @@
+﻿  mraes.c
+  mralloc.c
+  mrarth0.c
+  mrarth1.c
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\miracl\mrarth1.c(116,14): warning C4101: “ldres”: 未引用的局部变量
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\miracl\mrarth1.c(393,14): warning C4101: “ldres”: 未引用的局部变量
+  mrarth2.c
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\miracl\mrarth2.c(79,14): warning C4101: “ldres”: 未引用的局部变量
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\miracl\mrarth2.c(851,14): warning C4101: “ldres”: 未引用的局部变量
+  mrarth3.c
+  mrbits.c
+  mrbrick.c
+  mrcore.c
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\miracl\mrcore.c(220,14): warning C4101: “ldres”: 未引用的局部变量
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\miracl\mrcore.c(309,5): warning C4101: “i”: 未引用的局部变量
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\miracl\mrcore.c(862,50): warning C4311: “类型强制转换”: 从“char *”到“unsigned long”的指针截断
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\miracl\mrcore.c(882,25): warning C4311: “类型强制转换”: 从“char *”到“unsigned long”的指针截断
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\miracl\mrcore.c(887,50): warning C4311: “类型强制转换”: 从“char *”到“unsigned long”的指针截断
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\miracl\mrcore.c(2168,25): warning C4311: “类型强制转换”: 从“char *”到“unsigned long”的指针截断
+  mrcrt.c
+  mrcurve.c
+  mrebrick.c
+  mrec2m.c
+  mrecn2.c
+  mrfast.c
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\miracl\mrfast.c(174,19): warning C4101: “ldres”: 未引用的局部变量
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\miracl\mrfast.c(324,19): warning C4101: “ldres”: 未引用的局部变量
+  mrgcd.c
+  mrgcm.c
+  mrgf2m.c
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\miracl\mrgf2m.c(350,9): warning C4101: “k”: 未引用的局部变量
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\miracl\mrgf2m.c(611,11): warning C4101: “j”: 未引用的局部变量
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\miracl\mrgf2m.c(612,16): warning C4101: “t”: 未引用的局部变量
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\miracl\mrgf2m.c(612,18): warning C4101: “r”: 未引用的局部变量
+  mrio1.c
+  mrio2.c
+  正在编译...
+  mrjack.c
+  mrlucas.c
+  mrmonty.c
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\miracl\mrmonty.c(281,20): warning C4101: “ldres”: 未引用的局部变量
+  mrpower.c
+  mrprime.c
+  mrrand.c
+  mrscrt.c
+  mrshs.c
+  mrshs256.c
+  mrshs512.c
+  mrsmall.c
+  mrsroot.c
+  mrstrong.c
+  mrxgcd.c
+  mrzzn2.c
+  mrzzn2b.c
+  mrzzn3.c
+  sm2.c
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\sm2.c(210,32): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\sm2.c(283,19): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\sm2.c(600,19): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+  sm3.c
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\sm3.c(26,16): warning C4267: “+=”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\sm3.c(43,13): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+  tools.c
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\tools.c(36,17): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\tools.c(44,20): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  test.cpp
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\test.cpp(118,37): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\test.cpp(126,3): warning C4244: “=”: 从“clock_t”转换到“float”，可能丢失数据
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\test.cpp(179,3): warning C4244: “=”: 从“clock_t”转换到“float”，可能丢失数据
+  正在生成代码
+  Previous IPDB not found, fall back to full compilation.
+  All 127 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  已完成代码的生成
+  SM2_SIGN_TCP.vcxproj -> C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\x64\Release\SM2_SIGN_TCP.exe

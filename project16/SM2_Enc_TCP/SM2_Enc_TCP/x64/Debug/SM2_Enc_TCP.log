@@ -1,0 +1,5 @@
+﻿  sm2.c
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project15\SM2_Enc_TCP\sm2.c(210,32): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project15\SM2_Enc_TCP\sm2.c(283,19): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project15\SM2_Enc_TCP\sm2.c(600,19): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+  SM2_Enc_TCP.vcxproj -> C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project15\SM2_Enc_TCP\x64\Debug\SM2_Enc_TCP.exe

@@ -1,0 +1,4 @@
+﻿  tools.c
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\tools.c(36,17): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\tools.c(44,20): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  SM2_SIGN_TCP.vcxproj -> C:\Users\13247\Desktop\SDU-A627-WorkforIAE\project16\SM2_SIGN_TCP\x64\Debug\SM2_SIGN_TCP.exe
