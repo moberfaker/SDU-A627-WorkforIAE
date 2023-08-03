@@ -1,34 +1,38 @@
-<div align="center">
-<img src=https://img1.baidu.com/it/u=3783559290,1144114418&fm=253&fmt=auto&app=138&f=JPEG width=60% height="60%"/>
-</div>
+import random
+import time
 
-<!-- ********************* Chapter1 ********************* -->
+# 偏移向量
+IV = [0x7380166F, 0x4914B2B9, 0x172442D7, 0xDA8A0600, 0xA96F30BC, 0x163138AA, 0xE38DEE4D, 0xB0FB0E4E]
+T = [0x79cc4519, 0x7a879d8a]
 
-## 1 分工表格
-<center>
+def Shift(X, i):
+    i = i % 32
+    return ((X << i) & 0xFFFFFFFF) | ((X & 0xFFFFFFFF) >> (32 - i))
 
-| 姓名  |      学号      | 分工 |
-|:---:|:------------:|----|
-| 刘晨曦 | 202100460042 | SM3代码实现 |
-| 卢梓宁 | 202100460043 | 生日攻击实现 |
-| 陈辉华 | 202100460044 | 生日攻击实现|
+def FF(X, Y, Z, j):
+    if j >= 0 and j <= 15:
+        return X ^ Y ^ Z
+    else:
+        return ((X & Y) | (X & Z) | (Y & Z))
 
-</center>
+def GG(X, Y, Z, j):
+    if j >= 0 and j <= 15:
+        return X ^ Y ^ Z
+    else:
+        return ((X & Y) | (~X & Z))
 
-<!-- ********************* Chapter2 ********************* -->
+def P0(X):
+    return X ^ Shift(X, 9) ^ Shift(X, 17)
 
-## 2 生日攻击
+def P1(X):
+    return X ^ Shift(X, 15) ^ Shift(X, 23)
 
-#### 2.1 攻击原理及分析 
- 利用生日攻击找前n比特碰撞​ 随机生成字符串消息M，我们计算H=SM3(M)，如果我们只考虑前n比特，那么当我们遍历2^(n/2)中可能时，找到至少一对匹配的概率大于0.5. 根据这个原理我们可以实现 sm3 前nbit的碰撞
+def SM3_T1(j):
+    if j >= 0 and j <= 15:
+        return T[0]
+    else:
+        return T[1]
 
-假设存在M‘，有SM3(M)=SM3(M')，那么我们在前2^n比特范围内找到M'的概率是1/2^n,但是我们找两个数m1和m2，满足m1-m2 = M’的概率则是（C2n，2）/2^n。
-<!--**【代码实现】** -->
-
-
-#### 2.2 代码实现
-**【SM3实现】**
-```
 # 填充
 def padding(message):
     m = bin(int(message, 16))[2:]
@@ -94,6 +98,7 @@ def CF(V, M, i):
     # update V
     V_ = [a ^ A, b ^ B, c ^ C, d ^ D, e ^ E, f ^ F, g ^ G, h ^ H]
     return V_
+
 # SM3hash
 def SM3(message):
     n = len(message)
@@ -102,9 +107,7 @@ def SM3(message):
     for i in range(n):
         V.append(CF(V, message, i))
     return V[n]
-```
-**【SM3生日攻击】**
-```
+
 #SM3生日攻击
 def SM3_birthday_attack(n):
     cipher = set()
@@ -130,18 +133,9 @@ def SM3_birthday_attack(n):
     #print("text:",text)
     #print("cipher:",cipher)
 
-print("SM3_birthday_attack:")
+print("SM3生日攻击实现:")
 start = time.time()
-SM3_birthday_attack(4)
+SM3_birthday_attack(8)
+print("碰撞的长度为:",32)
 end = time.time()
 print("Time:%.3fs" % (end - start))
-```
-
-<!-- ********************* Chapter3 ********************* -->
-
-## 3 运行结果
-如下图所示，给出SM3 16bit的碰撞需要0.130s，24bit的碰撞需要4.476s，而给出到32bit的碰撞则需要66.138s。呈现指数级增长！
-> ![](16bit.png)  
-> ![](24bit.png)  
-> ![](32bit.png)
-> <!-- 与md文件同一目录下的foldername文件夹，里的1.png图片 -->
