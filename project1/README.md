@@ -29,99 +29,112 @@
 #### 2.2 代码实现
 **【SM3实现】**
 ```
-string compress(string str1, string str2) {//消息压缩函数
-	string IV = str2;
-	string A = IV.substr(0, 8), B = IV.substr(8, 8), C = IV.substr(16, 8), D = IV.substr(24, 8), E = IV.substr(32, 8), F = IV.substr(40, 8), G = IV.substr(48, 8), H = IV.substr(56, 8);
-	string SS1 = "", SS2 = "", TT1 = "", TT2 = "";
-	for (int j = 0; j < 64; j++) {
-		SS1 = LeftShift(ModAdd(ModAdd(LeftShift(A, 12), E), LeftShift(T(j), (j % 32))), 7);
-		SS2 = XOR(SS1, LeftShift(A, 12));
-		TT1 = ModAdd(ModAdd(ModAdd(FF(A, B, C, j), D), SS2), str1.substr((j + 68) * 8, 8));
-		TT2 = ModAdd(ModAdd(ModAdd(GG(E, F, G, j), H), SS1), str1.substr(j * 8, 8));
-		D = C;
-		C = LeftShift(B, 9);
-		B = A;
-		A = TT1;
-		H = G;
-		G = LeftShift(F, 19);
-		F = E;
-		E = P0(TT2);
-	}
-	string res = (A + B + C + D + E + F + G + H);
-	//cout << endl;
-	return res;
-}
+# 填充
+def padding(message):
+    m = bin(int(message, 16))[2:]
+    if len(m) != len(message) * 4:
+        m = '0' * (len(message) * 4 - len(m)) + m
+    l = len(m)
+    l_bin = '0' * (64 - len(bin(l)[2:])) + bin(l)[2:]
+    m = m + '1'
+    m = m + '0' * (448 - len(m) % 512) + l_bin
+    m = hex(int(m, 2))[2:]
+    return m
 
-string iteration(string str) {//迭代压缩函数实现
-	int num = str.size() / 128;
-	string V = "7380166F4914B2B9172442D7DA8A0600A96F30BC163138AAE38DEE4DB0FB0E4E";
-	string B = "", extensionB = "", compressB = "";
-	for (int i = 0; i < num; i++) {
-		//cout << "第 " << to_string(i + 1) << " 个消息分组：" << endl;
-		//cout << endl;
-		B = str.substr(i * 128, 128);
-		extensionB = extension(B);
-		compressB = compress(extensionB, V);
-		V = XOR(V, compressB);
-	}
-	return V;
-}
+# 输入字符串
+def Input(m):
+    n = len(m) // 128
+    M = []
+    for i in range(int(n)):
+        M.append(m[128 * i:128 * (i + 1)])
+    return M
 
+# 消息扩展
+def Expand(M, n):
+    W = []
+    W1 = []
+    for i in range(16):
+        W.append(int(M[n][0 + 8 * i:8 + 8 * i], 16))
+    for j in range(16, 68):
+        t1 = Shift(W[j - 3], 15)
+        t2 = Shift(W[j - 13], 7) ^ W[j - 6]
+        t3 = W[j - 16] ^ W[j - 9]
+        t4 = P1(t1 ^ t3)
+        t5 = t4 ^ t2
+        W.append(t5)
+    for k in range(64):
+        W1.append(W[k] ^ W[k + 4])
+    Wstr = ''
+    W_str = ''
+    for x in W:
+        Wstr += (hex(x)[2:] + ' ')
+    for x in W1:
+        W_str += (hex(x)[2:] + ' ')
+    return W, W1
 
-string SM3(string str,string output) {
-	//cout << "原像为:" <<endl<< str<<endl;
-	string paddingValue = padding(str);
-	output = iteration(paddingValue);
-	//cout << "杂凑值：" << endl;
-	for (int i = 0; i < 8; i++) {
-		cout << output.substr(i * 8, 8) << "  ";
-	}cout << endl;
-	return output;
-}
+def CF(V, M, i):
+    # reg init, set ABCDEFGH = V0
+    A, B, C, D, E, F, G, H = V[i]
+    W, W1 = Expand(M, i)
+    for j in range(64):
+        SS1 = Shift((Shift(A, 12) + E + Shift(SM3_T1(j), j % 32)) % (2 ** 32), 7)
+        SS2 = SS1 ^ Shift(A, 12)
+        TT1 = (FF(A, B, C, j) + D + SS2 + W1[j]) % (2 ** 32)
+        TT2 = (GG(E, F, G, j) + H + SS1 + W[j]) % (2 ** 32)
+        D = C
+        C = Shift(B, 9)
+        B = A
+        A = TT1
+        H = G
+        G = Shift(F, 19)
+        F = E
+        E = P0(TT2)
+
+    a, b, c, d, e, f, g, h = V[i]
+    # update V
+    V_ = [a ^ A, b ^ B, c ^ C, d ^ D, e ^ E, f ^ F, g ^ G, h ^ H]
+    return V_
+# SM3hash
+def SM3(message):
+    n = len(message)
+    V = []
+    V.append(IV)
+    for i in range(n):
+        V.append(CF(V, message, i))
+    return V[n]
 ```
 **【SM3生日攻击】**
 ```
-int Pollard_Rho(string image, string H, string c, string preiamge) //H = SM3(image) 
-{
-	unsigned int m1 = rand();
-	unsigned int m2 = m1;
-	while (true)
-	{
-		m1 = F(m1, c);
-		m2 = F(F(m2, c), c);
-		if (m2 == m1)
-			return 1;
-		unsigned int tmp = m2 - m1;
-		string input = to_string(tmp).c_str();
-		string output;
-		SM3(input,output);
-		string temp=to_string(tmp);
-		if (!cmphash(H, output, Collisionlen)&&temp!=image)
-		{	
-			cout<<"找到前"<<24<<"bit的碰撞"<<endl;
-			preiamge = temp;
-			cout << "SM3(" << input << "):";
-			cout << output << endl;
-			return 0;
-		}
-	}
-}
-void  Attack(string image)
-{
-	string preimage;
-	string image_input = image;
-	string image_output;
-	cout << "SM3(" << image_input << "):";
-	SM3(image_input, image_output);
-	cout << image_output << endl;
+#SM3生日攻击
+def SM3_birthday_attack(n):
+    cipher = set()
+    while True:
+        list_r = random.randint(0, pow(2, 64))
+        m = padding(str(list_r))
+        V = SM3(Input(m))
+        text = ""
+        for x in V:
+            text += hex(x)[2:]
+        j = text[:n]
+        if j in cipher:
+            print("碰撞成功！碰撞的公共前缀为：", j)
+            break
+        else:
+            cipher.add(j)
+    #print(text)
+    print("SM3生日攻击过程中，有以下杂凑值")
+    for i in V:
+        print(hex(i))
+    print("V:",V)
+    #print(j)
+    #print("text:",text)
+    #print("cipher:",cipher)
 
-	unsigned int c = rand();
-	string c_1=to_string(c);
-	while (Pollard_Rho(image, image_output,c_1,preimage))
-	{
-		c = rand();
-	}
-}
+print("SM3_birthday_attack:")
+start = time.time()
+SM3_birthday_attack(4)
+end = time.time()
+print("Time:%.3fs" % (end - start))
 ```
 
 <!-- ********************* Chapter3 ********************* -->
