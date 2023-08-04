@@ -130,7 +130,9 @@
 
 ### PROJECT SUMMARY：
 <center>
-？？？？？？？？？？？？
+通过查表优化、OMP并行处理、循环展开、模运算优化和指令优化加速SM4加解密。
+
+对各个阶段进行运行时间(ns)和吞吐量测试(Gbps),单次SM4运行时间达到14ns，吞吐量约8Gbps。
 </center>
 
 > ![](project9/test.jpg) 
@@ -161,11 +163,9 @@
 密钥交换得到结果如下，可以看到A和B得到了一个一样的密钥
 > ![](project11/keyres.png)
   
-## PROJECT 14 && 15 && 16：
+## PROJECT 14：
 ### PROJECT NAME：
 ### Implement a PGP scheme with SM2 
-### implement sm2 2P sign with real network communication
-### implement sm2 2P decrypt with real network communication
 ### PROJECT DIVISION：
 <center>
 
@@ -179,14 +179,59 @@
 
 ### PROJECT SUMMARY：
 
-> ![](project14/) 
+本项目的PGP协议基于国密算法原语SM2/SM3/SM4，皆通过c语言自主实现与优化，随机数生成器PRG基于c++密码学库bcrypt.lib。具体框架如下：
+> ![PGP框架](project14/PGP框架.jpg "PGP框架")
 
-对消息"SDUA627"进行签名和验签
-> ![](project11/signres.png) 
+具体算法应用涉及UserID、时间戳等信息，需要对PGP报文进行设计:
+```
+	PGPData数据报格式：
+		  8    bytes: uint8_t[]  UserID		
+		  8    bytes: size_t	 EncMessage_Len		加密后消息长度
+		  ?    bytes: uint8_t[]  Message
+		16+96  bytes: uint8_t[]  EncSessionKey
+```
 
-密钥交换得到结果如下，可以看到A和B得到了一个一样的密钥
-> ![](project11/keyres.png)
+模拟测试Alice与Bob之间的PGP通信：
 
+> ![PGP模拟测试](project14/PGP模拟测试.jpg "PGP模拟测试")
+
+测试在1024Bytes数据量下PGP协议速度与吞吐量：
+
+> ![PGP速度_吞吐测试](project14/PGP速度_吞吐测试.jpg "PGP速度_吞吐测试")
+
+## PROJECT 15 && 16
+### implement sm2 2P sign with real network communication
+### implement sm2 2P decrypt with real network communication
+<center>
+
+| 姓名  |      学号      | 分工 |
+|:---:|:------------:|----|
+| 刘晨曦 | 202100460042 | TCP代码编写和测试 |
+| 卢梓宁 | 202100460043 | SM系列代码编写 |
+| 陈辉华 | 202100460044 | PRG算法编写与代码优化 |
+
+</center>
+
+### PROJECT SUMMARY：
+
+本项目sm2算法基于c语言miracl大数算法，并对miracl的内部函数进行相关优化和修改。使秘钥生成更加随机的同时对sm2加解密速度有所提升
+
+网络传输实现基于c语言库WinSocket2.h，实现了能够处理多个服务请求的多线程服务端。服务端分别为：
+
+-Project 15: 向链接的客户端发送本地sm2公钥，并接收客户端发送的加密信息，解密后输出。
+-Project 16: 接收客户端的公钥和带签名的消息，并通过公钥对消息进行验证，验证后输出验证结果。
+
+相关可执行文件分别在project文件夹中，以下为测试结果：
+
+
+
+-project 15: 签名0.7ms，验证0.9ms。
+
+> ![SM2签名测试](project15/SM2签名测试.jpg "SM2签名测试")
+
+-Project 16: 加密1.5ms，解密0.9ms。
+
+> ![SM2加密测试](project16/SM2加密测试.jpg "SM2加密测试")
 
 ## 注
 在每个项目中如果没有特殊说明，即可以直接运行，具体代码见具体的project文件夹。这里只展示实验结果和数据！
